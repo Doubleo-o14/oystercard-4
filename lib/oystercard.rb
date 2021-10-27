@@ -8,4 +8,8 @@ class Oystercard
         fail "cannot top up anymore, at maximum limit." if @balance + amount > @MAX_BALANCE
         @balance += amount
     end
+
+    def deduct
+        @balance -= 1
+    end
 end
