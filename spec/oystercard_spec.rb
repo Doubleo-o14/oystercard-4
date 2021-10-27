@@ -19,4 +19,14 @@ describe Oystercard do
         expect { subject.deduct }.to change { subject.balance }.by -1
       end
     end
+    describe "#touch in" do
+      it "enter trainstation and starting journey" do
+        expect(subject.touch_in).to eq true
+      end
+    end
+    describe "#touch out" do
+      it "leaving train station and ending journey" do
+        expect(subject.touch_out).to eq false
+      end
+    end
 end
