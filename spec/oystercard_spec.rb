@@ -28,19 +28,26 @@ describe Oystercard do
       end
     end
 
+
     #### REFACTORED UP TO HERE
 
-    describe "#touch in" do
-      it "enter trainstation and starting journey" do
-        expect(subject.touch_in).to eq true
-      end
-      it "raise an error of insufficent funds" do
-        expect{ subject.touch_in }.to raise_error "no funds"
-      end
-    end
-    describe "#touch out" do
-      it "leaving train station and ending journey" do
-        expect(subject.touch_out).to eq false
-      end
+    describe '#in_journey?' do
+      context "when oystercard is initalized it" do
+        it "is false" do
+          expect(subject.in_journey?).to be false
+        end
     end
 end
+
+#     describe "#touch in" do
+#       it "raise an error of insufficent funds" do
+#         expect{ subject.touch_in }.to raise_error "no funds"
+#       end
+#     end
+
+#     describe "#touch out" do
+#       it "leaving train station and ending journey" do
+#         expect(subject.touch_out).to eq false
+#       end
+#     end
+# end
