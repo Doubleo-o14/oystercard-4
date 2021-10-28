@@ -42,7 +42,7 @@ describe Oystercard do
       it "is false" do
         subject.top_up(50)
         subject.touch_in(:station)
-        subject.touch_out
+        subject.touch_out(:station)
         expect(subject.in_journey?).to be false
       end
     end
@@ -68,14 +68,23 @@ describe Oystercard do
       subject.top_up(50)
       subject.touch_in(:station)
       minimum_fare = Oystercard::MINIMUM_FARE
-      expect { subject.touch_out }.to change { subject.balance }.by(-minimum_fare)
+      expect { subject.touch_out(:station) }.to change { subject.balance }.by(-minimum_fare)
     end
 
     it 'reset entry_station to nil' do
       subject.top_up(50)
       subject.touch_in(:station)
-      subject.touch_out
+      subject.touch_out(:station)
       expect(subject.entry_station).to eq nil
     end
+
+    it 'registers an exit_station on touch_out' do
+      subject.top_up(50)
+      subject.touch_in(:station)
+      subject.touch_out(:station)
+      expect(subject.exit_station).to eq :station
+    end
   end
+  describe "#journey_history" do
+    it "in the journey"
 end
