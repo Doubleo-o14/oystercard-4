@@ -11,20 +11,24 @@ describe Oystercard do
     
     describe '#top_up' do
       it "add money to your card up" do
-        expect { subject.top_up 10 }.to change { subject.balance }.by(10) 
+        expect { subject.top_up 10 }.to change { subject.balance }.by(10)
       end
-      it "raise error at maximum limit" do
-        max = subject.MAX_BALANCE
-        subject.top_up(max)
-        expect{ subject.top_up(1) }.to raise_error("cannot top up anymore, at maximum limit.")
+      
+      it "raise an error if balance exceeds maximum balance" do
+        maximum_balance = Oystercard::MAXIMUM_BALANCE
+        subject.top_up(maximum_balance)
+        expect{ subject.top_up(1) }.to raise_error "Maximum balance exceeded"
       end
     end
 
     describe "#deduct" do
-      it "takes money from the balance" do
-        expect { subject.deduct }.to change { subject.balance }.by -1
+      it "deducts minimum_fare from balance" do
+        minimum_fare = Oystercard::MININMUM_FARE
+        expect { subject.deduct(minimum_fare) }.to change { subject.balance }.by(-minimum_fare)
       end
     end
+
+    #### REFACTORED UP TO HERE
 
     describe "#touch in" do
       it "enter trainstation and starting journey" do
