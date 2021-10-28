@@ -1,12 +1,17 @@
 require 'oystercard'
+
 describe Oystercard do
-    it "shows yourt balance" do
-        card = Oystercard.new
-        expect(card.balance).to eq(0)
+
+    describe '#balance' do
+      it "has a balance of 0 on initalization" do
+          card = Oystercard.new
+          expect(card.balance).to eq(0)
+      end
     end
+    
     describe '#top_up' do
-      it "tops your card up" do
-        expect(subject).to respond_to(:top_up).with(1).argument
+      it "add money to your card up" do
+        expect { subject.top_up 10 }.to change { subject.balance }.by(10) 
       end
       it "raise error at maximum limit" do
         max = subject.MAX_BALANCE
@@ -14,14 +19,19 @@ describe Oystercard do
         expect{ subject.top_up(1) }.to raise_error("cannot top up anymore, at maximum limit.")
       end
     end
-    describe "#deduct balance" do
+
+    describe "#deduct" do
       it "takes money from the balance" do
         expect { subject.deduct }.to change { subject.balance }.by -1
       end
     end
+
     describe "#touch in" do
       it "enter trainstation and starting journey" do
         expect(subject.touch_in).to eq true
+      end
+      it "raise an error of insufficent funds" do
+        expect{ subject.touch_in }.to raise_error "no funds"
       end
     end
     describe "#touch out" do
