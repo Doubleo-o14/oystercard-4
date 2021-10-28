@@ -2,6 +2,7 @@ require './lib/oystercard'
 
 describe Oystercard do
   let(:station) { double :station }
+  let(:journey) { {:journey_entry => :station, :journey_exit => :station} }
 
   describe '#balance' do
     it "has a balance of 0 on initalization" do
@@ -84,7 +85,18 @@ describe Oystercard do
       subject.touch_out(:station)
       expect(subject.exit_station).to eq :station
     end
+
+    it 'adds the journey with entry_station and exit_station as a hash to @journey_history' do
+      subject.top_up(50)
+      subject.touch_in(:station)
+      subject.touch_out(:station)
+      expect(subject.journey_history).to include journey
+    end
   end
+  
   describe "#journey_history" do
-    it "in the journey"
+    it "expects there not to be a journey history on initialization" do
+      expect(subject.journey_history).to be_empty
+    end
+  end 
 end
