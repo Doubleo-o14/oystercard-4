@@ -83,7 +83,7 @@ describe Oystercard do
       subject.top_up(50)
       subject.touch_in(:station)
       subject.touch_out(:station)
-      expect(subject.exit_station).to eq :station
+      expect(subject.exit_station).to eq nil
     end
 
     it 'adds the journey with entry_station and exit_station as a hash to @journey_history' do
