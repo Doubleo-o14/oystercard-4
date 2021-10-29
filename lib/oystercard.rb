@@ -42,5 +42,7 @@ class Oystercard
   def deduct(amount)
     @balance -= amount
   end
+end
 
+class Station
 end
